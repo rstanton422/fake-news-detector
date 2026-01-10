@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from classifier import article_analyzer
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()     # creates the application object
 
