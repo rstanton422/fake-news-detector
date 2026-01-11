@@ -1,6 +1,10 @@
 from transformers import pipeline
 
-classifier = pipeline("text-classification", model="hamzab/roberta-fake-news-classification")
+classifier = pipeline(
+    "text-classification", 
+    model="hamzab/roberta-fake-news-classification",
+    truncation=True # for long articels it only looks at the first ~400 words - blind to the rest
+    )
 
 def article_analyzer(text:str) -> dict:
     """
