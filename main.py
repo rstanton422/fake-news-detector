@@ -79,7 +79,7 @@ def root():
 # after getting the prediction - create an Analysis object and save it
 # database: Session = Depends(get_db) - FASTAPI sees Depends, calls get_db() and passes the yielded session as database
 # this is dependency injection - function declares what it needs... FASTAPI provides it
-def analyze(request: ArticleAnalyzer, database: Session = Depends(get_db)):
+def analyze(request: ArticleAnalyzer, database: Session = Depends(get_database)):
     """
     Analyze article text for fake news indicators.
     
@@ -101,8 +101,8 @@ def analyze(request: ArticleAnalyzer, database: Session = Depends(get_db)):
     # not officially saved at this point - just exists in memory
     analysis = Analysis(
         text = request.text,
-        label = result["label"],
-        confidence = result["confidence"]
+        label = result["Label"],
+        confidence = result["Confidence"]
     )
 
     database.add(analysis)  # stages the object for insertion - it's "pending" being added to the table
