@@ -1,12 +1,19 @@
 # all the database imports
 # sqlalchemy is an Object Relational Mapper
-# instead of writing sql queries, we work with Python objects=
+# instead of writing sql queries, we work with Python objects
+import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
 from sqlalchemy.orm import sessionmaker, declarative_base
 from datetime import datetime
 
-# connection string
-DATABASE_URL = "postgresql://postgres:Le%40nderTexa$7864!@localhost:5432/fakenews"
+load_dotenv()   # reads my env file
+
+DATABASE_URL = os.getenv("DATABASE_URL")    # pulls the value
+
+# error handling - response if environment variable not set
+if not DATABASE_URL:
+    raise ValueError("DATABASE URL environment variable not set")
 
 engine = create_engine(DATABASE_URL)    # sqlalchemy's connection manager - handles connection pooling (reusing connections instead of opening new ones each time)
 SessionLocal = sessionmaker(bind=engine)    # creates the session so I can start a conversation (read/writes)
